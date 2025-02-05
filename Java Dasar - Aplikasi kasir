@@ -1,0 +1,108 @@
+package belajar;
+
+import java.util.Scanner;
+
+public class program_simple_while {
+    static Scanner input = new Scanner(System.in);
+    public static void main(String[] args) {
+        while (true) {
+            System.out.println("==== Toko Minuman mineral =====================");
+            System.out.println("1. Aqua botol 600ML/karton    Rp.57000");
+            System.out.println("2. Le Mineralle 600ML/karton  Rp.37500");
+            System.out.println("3. pristine 8+ 400ML/karton   Rp.80000");
+            System.out.println("diskon beli Aqua Botol 600ML 2 karton atau lebih:20%");
+            System.out.println("diskon beli Le Mineralle 600ML 2 karton atau lebih:20%");
+            System.out.println("diskon beli pristine 8+ 400ML 2 karton atau lebih:20%");
+            System.out.println("========================================================");
+            System.out.println("=================SELAMAT MEMBELI========================");
+
+        System.out.print("Ingin Beli apa = ? ");
+            var beli = input.nextInt();
+            if (beli == 0) {
+                System.out.println("Terimakasih");
+                break;
+            }
+            var pilihan = (beli == 1) ? 57000 : (beli == 2) ? 37500 : 80000;
+            var pilihanBrng = (beli == 1) ? "Aqua Botol" : (beli == 2) ? "Le Mineralle" : "Pristine";
+            jadiBeli(pilihan,pilihanBrng);
+
+            System.out.print("apakah ingin berbelanja lagi ? (ya/tidak) ");
+            var belanjaLagi = input.next();
+            if (belanjaLagi.equalsIgnoreCase("t")) {
+                System.out.println("terimakasih telah berbelanja");
+                break;
+            }
+        }
+
+    }
+
+    static void jadiBeli(int harga,String barang) {
+        System.out.println("anda membeli = " + barang);
+        System.out.print("Ingin beli berapa ? ");
+        var beliBerapa = input.nextInt();
+        var ongkir = 5000;
+        var totalAwal = beliBerapa * harga;
+        var totalsemua = totalAwal + ongkir;
+        var setelahDiskon = totalAwal * 80 / 100;
+        System.out.println("Harganya = " + beliBerapa * harga);
+
+        if (beliBerapa >= 2) {
+            System.out.println("Diskon 20%, harganya menjadi = " + setelahDiskon);
+            System.out.print("pakai ongkir (5000)? ");
+            var pilihOngkir = input.next();
+            if (pilihOngkir.equalsIgnoreCase("ya") || pilihOngkir.equalsIgnoreCase(("y"))) {
+                System.out.println("Total semuanya = " + (setelahDiskon + ongkir));
+                System.out.print("Masukkan Pembayaran = ");
+                var pembayaran = input.nextInt();
+                if (pembayaran < (setelahDiskon + ongkir)) {
+                    System.out.println("uang anda tidak cukup");
+                    return;
+                }
+                System.out.println("kembalian = " + (pembayaran - (setelahDiskon+ongkir)));
+                notaBelanja(barang,beliBerapa);
+                return;
+            }
+                System.out.println("Total semuanya = " + setelahDiskon);
+                System.out.print("Masukkan Pembayaran = ");
+                var pembayaran = input.nextInt();
+                if (pembayaran < setelahDiskon) {
+                    System.out.println("uang anda tidak cukup");
+                    return;
+                }
+                System.out.println("kembalian = " + (pembayaran - setelahDiskon));
+                notaBelanja(barang,beliBerapa);
+                return;
+        }
+
+        System.out.print("pakai ongkir (5000)? ");
+        var pilihOngkir = input.next();
+        if (pilihOngkir.equalsIgnoreCase("ya") || pilihOngkir.equalsIgnoreCase(("y"))) {
+            System.out.println("Total semuanya = "+ totalsemua);
+            System.out.print("Masukkan Pembayaran = ");
+            var pembayaran = input.nextInt();
+            if (pembayaran < totalsemua) {
+                System.out.println("uang anda tidak cukup");
+                return;
+            }
+            System.out.println("kembalian = " + (pembayaran - totalsemua));
+            notaBelanja(barang,beliBerapa);
+            return;
+        }
+            System.out.println("Total semuanya = " + totalAwal);
+            System.out.print("Masukkan Pembayaran = ");
+            var pembayaran = input.nextInt();
+            if (pembayaran < totalAwal) {
+                System.out.println("uang anda tidak cukup");
+                return;
+            }
+            System.out.println("kembalian = " + (pembayaran - totalAwal));
+            notaBelanja(barang,beliBerapa);
+    }
+
+    static void notaBelanja (String barang, int pcs){
+        System.out.println("=====================");
+        System.out.println("Nota Pembelian \n");
+        System.out.printf("%s %d karton",barang,pcs,"\n");
+        System.out.println("Terimakasih telah berbelanja");
+    }
+}
